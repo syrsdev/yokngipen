@@ -1,6 +1,6 @@
 # YOKNGIPEN
 
-Project ini blablalbla.
+Platform ini dibuat sebagai jembatan untuk penyelenggara dan calon peserta event untuk pemesanan tiket event.
 
 ## Tech Stack
 
