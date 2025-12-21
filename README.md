@@ -2,6 +2,9 @@
 
 Platform ini dibuat sebagai jembatan untuk penyelenggara dan calon peserta event untuk pemesanan tiket event.
 
+## ERD
+https://drive.google.com/file/d/19PJYDbJQ132Od5ZKBJG-ZkuGjf7SWhYo/view?usp=drive_link
+
 ## Tech Stack
 
 **Core:**  HTML, CSS, JS
