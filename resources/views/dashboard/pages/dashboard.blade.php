@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.layout')
 
 @section('contents')
-    @include('dashboard.components.heading', ['title' => 'Dashboard'])
+    @include('dashboard.partials.heading', ['title' => 'Dashboard'])
 
     <div class="page-content">
         <section class="row">
