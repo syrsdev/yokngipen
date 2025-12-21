@@ -29,7 +29,7 @@
 <body>
     <script src="{{ asset('/template/assets/static/js/initTheme.js') }}"></script>
     <div id="app">
-        @include('dashboard.components.sidebar')
+        @include('dashboard.partials.sidebar')
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -39,7 +39,7 @@
 
             @yield('contents')
 
-            @include('dashboard.components.footer')
+            @include('dashboard.partials.footer')
         </div>
     </div>
     @yield('js')
