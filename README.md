@@ -11,6 +11,8 @@ https://drive.google.com/file/d/19PJYDbJQ132Od5ZKBJG-ZkuGjf7SWhYo/view?usp=drive
 
 **Framework & Library:** Laravel, Bootstrap, Breeze
 
+**Database:** MySQL
+
 # Installation
 
 Clone Project
