@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class events extends Model
 {
-    //
+    public function prices()
+    {
+        return $this->hasMany(event_prices::class);
+    }
 }
