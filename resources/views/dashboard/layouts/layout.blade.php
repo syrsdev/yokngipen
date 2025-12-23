@@ -27,6 +27,8 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
+
     <script src="{{ asset('/template/assets/static/js/initTheme.js') }}"></script>
     <div id="app">
         @include('dashboard.partials.sidebar')
