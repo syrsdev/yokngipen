@@ -42,8 +42,8 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-                <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -72,13 +72,20 @@
                             <span>Verifikasi Event</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="index.html" class='sidebar-link'>
+                    <li class="sidebar-item {{ $activeMenu == 'users' ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class='sidebar-link'>
                             <i class="bi bi-person-fill"></i>
                             <span>Management User</span>
                         </a>
                     </li>
                 @endif
+
+                <li class="sidebar-item {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-fill-gear"></i>
+                        <span>Edit Profil</span>
+                    </a>
+                </li>
 
                 <li class="mt-5 sidebar-title">Keluar</li>
                 <li class="w-full sidebar-item">
