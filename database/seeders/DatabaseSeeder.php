@@ -28,5 +28,19 @@ class DatabaseSeeder extends Seeder
             'phone'=> '0812345678',
             'role'=> 'admin',
         ]);
+        User::create([
+            'name' => 'organizer',
+            'email' => 'organizer@gmail.com',
+            'password'=> bcrypt('12345678'),
+            'phone'=> '0812345678',
+            'role'=> 'organizer',
+        ]);
+        User::create([
+            'name' => 'user',
+            'email' => 'user@gmail.com',
+            'password'=> bcrypt('12345678'),
+            'phone'=> '0812345678',
+            'role'=> 'user',
+        ]);
     }
 }
