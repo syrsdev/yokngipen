@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,13 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organize
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('users')->middleware(['role:admin'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::get('/add', [UserController::class, 'create'])->name('users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{id}/update', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{id}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/{id}/show', [UserController::class, 'show'])->name('users.show');
     });
 });
 
