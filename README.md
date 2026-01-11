@@ -9,7 +9,7 @@ https://drive.google.com/file/d/19PJYDbJQ132Od5ZKBJG-ZkuGjf7SWhYo/view?usp=drive
 
 **Core:**  HTML, CSS, JS
 
-**Framework & Library:** Laravel, Bootstrap, Breeze
+**Framework & Library:** Laravel, Bootstrap, Laravel Breeze
 
 **Database:** MySQL
 
