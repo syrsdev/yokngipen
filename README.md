@@ -7,7 +7,7 @@ https://drive.google.com/file/d/19PJYDbJQ132Od5ZKBJG-ZkuGjf7SWhYo/view?usp=drive
 
 ## Tech Stack
 
-**Core:**  HTML, CSS, JS
+**Core:**  HTML, CSS, JS, PHP
 
 **Framework & Library:** Laravel, Bootstrap, Laravel Breeze
 
