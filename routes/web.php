@@ -8,8 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organizer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('users')->middleware(['role:admin'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    });
 });
 
 Route::middleware('auth')->group(function () {
