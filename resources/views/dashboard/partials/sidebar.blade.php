@@ -87,7 +87,13 @@
                     </a>
                 </li>
 
-                <li class="mt-5 sidebar-title">Keluar</li>
+                <li class="mt-5 sidebar-title">Keluar Dashboard</li>
+                <li class="sidebar-item">
+                    <a href="{{ route('home') }}" class='sidebar-link'>
+                        <i class="bi bi-house-fill"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
                 <li class="w-full sidebar-item">
                     <form action="{{ route('logout') }}" method="POST" class="w-full">
                         @csrf
