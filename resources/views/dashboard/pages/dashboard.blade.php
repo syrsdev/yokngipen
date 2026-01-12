@@ -7,74 +7,79 @@
         <section class="row">
             <div class="col-12 col-lg-9">
                 <div class="row">
-                    <div class="col-6 col-lg-3 col-md-6">
+                    <div class="col-6 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="px-4 card-body py-4-5">
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div style="width: fit-content" class="d-flex justify-content-start">
                                         <div class="mb-2 stats-icon purple">
-                                            <i class="iconly-boldShow"></i>
+                                            <i class="bi-calendar-event-fill"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-semibold text-muted">Profile Views</h6>
+                                    <div style="width: fit-content" class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="font-semibold text-muted">Jumlah Event</h6>
                                         <h6 class="mb-0 font-extrabold">112.000</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
+                    <div class="col-6 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="px-4 card-body py-4-5">
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div style="width: fit-content" class="d-flex justify-content-start">
                                         <div class="mb-2 stats-icon blue">
-                                            <i class="iconly-boldProfile"></i>
+                                            <i class="iconly-boldShow"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-semibold text-muted">Followers</h6>
+                                    <div style="width: fit-content" class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="font-semibold text-muted">Event Berlangsung</h6>
                                         <h6 class="mb-0 font-extrabold">183.000</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="px-4 card-body py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="mb-2 stats-icon green">
-                                            <i class="iconly-boldAdd-User"></i>
+                    @if (auth()->user()->role == 'organizer')
+                        <div class="col-6 col-lg-4 col-md-6">
+                            <div class="card">
+                                <div class="px-4 card-body py-4-5">
+                                    <div class="row">
+                                        <div style="width: fit-content" class="d-flex justify-content-start">
+                                            <div class="mb-2 stats-icon red">
+                                                <i class="iconly-boldBookmark"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-semibold text-muted">Following</h6>
-                                        <h6 class="mb-0 font-extrabold">80.000</h6>
+                                        <div style="width: fit-content" class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="font-semibold text-muted">Event Selesai</h6>
+                                            <h6 class="mb-0 font-extrabold">112</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="px-4 card-body py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="mb-2 stats-icon red">
-                                            <i class="iconly-boldBookmark"></i>
+                    @endif
+                    @if (auth()->user()->role == 'admin')
+                        <div class="col-6 col-lg-4 col-md-6">
+                            <div class="card">
+                                <div class="px-4 card-body py-4-5">
+                                    <div class="row">
+                                        <div style="width: fit-content" class="d-flex justify-content-start">
+                                            <div class="mb-2 stats-icon red">
+                                                <i class="iconly-boldProfile"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="font-semibold text-muted">Saved Post</h6>
-                                        <h6 class="mb-0 font-extrabold">112</h6>
+                                        <div style="width: fit-content" class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="font-semibold text-muted">Jumlah User</h6>
+                                            <h6 class="mb-0 font-extrabold">112</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -208,47 +213,9 @@
                                 <img src="{{ asset('/template/assets/compiled/jpg/1.jpg') }}" alt="Face 1">
                             </div>
                             <div class="ms-3 name">
-                                <h5 class="font-bold">{{ auth()->user()->name }}</h5>
-                                <h6 class="mb-0 text-muted">{{ auth()->user()->email }}</h6>
+                                <h5 class="font-bold text-wrap">{{ auth()->user()->name }}</h5>
+                                <h6 class="mb-0 text-muted text-wrap">{{ auth()->user()->email }}</h6>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Recent Messages</h4>
-                    </div>
-                    <div class="pb-4 card-content">
-                        <div class="px-4 py-3 recent-message d-flex">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('/template/assets/compiled/jpg/4.jpg') }}">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Hank Schrader</h5>
-                                <h6 class="mb-0 text-muted">@johnducky</h6>
-                            </div>
-                        </div>
-                        <div class="px-4 py-3 recent-message d-flex">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('/template/assets/compiled/jpg/5.jpg') }}">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Dean Winchester</h5>
-                                <h6 class="mb-0 text-muted">@imdean</h6>
-                            </div>
-                        </div>
-                        <div class="px-4 py-3 recent-message d-flex">
-                            <div class="avatar avatar-lg">
-                                <img src="{{ asset('/template/assets/compiled/jpg/1.jpg') }}">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">John Dodol</h5>
-                                <h6 class="mb-0 text-muted">@dodoljohn</h6>
-                            </div>
-                        </div>
-                        <div class="px-4">
-                            <button class='mt-3 font-bold btn btn-block btn-xl btn-outline-primary'>Start
-                                Conversation</button>
                         </div>
                     </div>
                 </div>

@@ -2,14 +2,13 @@
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
-                <div class="logo">
-                    <a href="index.html"><img src="{{ asset('/template/assets/compiled/svg/logo.svg') }}" alt="Logo"
-                            srcset=""></a>
+                <div class="mt-2 mb-0 h4">
+                    YokNgipen
                 </div>
                 <div class="gap-2 mt-2 theme-toggle d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
-                        height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                        role="img" class="iconify iconify--system-uicons" width="20" height="20"
+                        preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path
@@ -43,55 +42,52 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-
-                <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-collection-fill"></i>
-                        <span>sidebar dropdown</span>
+                        <span>Kelola Event</span>
                     </a>
-
                     <ul class="submenu ">
-
                         <li class="submenu-item ">
-                            <a href="extra-component-avatar.html" class="submenu-link">Avatar</a>
-
+                            <a href="extra-component-avatar.html" class="submenu-link">Event</a>
                         </li>
-
-                        <li class="submenu-item ">
-                            <a href="extra-component-divider.html" class="submenu-link">Divider</a>
-
-                        </li>
-
-                        <li class="submenu-item ">
-                            <a href="extra-component-date-picker.html" class="submenu-link">Date Picker</a>
-
-                        </li>
-
-                        <li class="submenu-item ">
-                            <a href="extra-component-sweetalert.html" class="submenu-link">Sweet Alert</a>
-
-                        </li>
-
-                        <li class="submenu-item ">
-                            <a href="extra-component-toastify.html" class="submenu-link">Toastify</a>
-
-                        </li>
-
-                        <li class="submenu-item ">
-                            <a href="extra-component-rating.html" class="submenu-link">Rating</a>
-
-                        </li>
-
+                        @if (auth()->user()->role == 'organizer')
+                            <li class="submenu-item ">
+                                <a href="extra-component-avatar.html" class="submenu-link">Pembayaran</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
+                @if (auth()->user()->role == 'admin')
+                    <li class="sidebar-title">Admin</li>
+                    <li class="sidebar-item">
+                        <a href="index.html" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-check-fill"></i>
+                            <span>Verifikasi Event</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ $activeMenu == 'users' ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class='sidebar-link'>
+                            <i class="bi bi-person-fill"></i>
+                            <span>Management User</span>
+                        </a>
+                    </li>
+                @endif
 
+                <li class="sidebar-item {{ $activeMenu == 'profile' ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                        <i class="bi bi-person-fill-gear"></i>
+                        <span>Edit Profil</span>
+                    </a>
+                </li>
+
+                <li class="mt-5 sidebar-title">Keluar</li>
                 <li class="w-full sidebar-item">
                     <form action="{{ route('logout') }}" method="POST" class="w-full">
                         @csrf
