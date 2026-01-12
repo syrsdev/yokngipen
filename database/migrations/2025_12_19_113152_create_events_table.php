@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('banner');
             $table->enum('status', ['draft', 'published', 'closed']);
-            $table->integer('price');
             $table->timestamps();
         });
     }
