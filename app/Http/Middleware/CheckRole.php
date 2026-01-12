@@ -23,14 +23,9 @@ class CheckRole
 
         $user = Auth::user();
 
-        if ($user->role == "user") {
-            return redirect('/');
-        } else {
-            foreach ($roles as $role) {
-
-                if ($user->role === $role) {
-                    return $next($request);
-                }
+        foreach ($roles as $role) {
+            if ($user->role === $role) {
+                return $next($request);
             }
         }
 

@@ -9,14 +9,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-       $events = Event::latest()->take(4)->get();
-        return view('home', compact('events'));
-    }
-    
-    public function allEvents()
-    {
-        $events = Event::latest()->get(); // semua event
-        return view('events.index', compact('events'));
+        $activeMenu = 'home';
+        $events = Event::latest()->take(4)->get();
+        return view('home', compact('events', 'activeMenu'));
     }
 
+    public function allEvents()
+    {
+        $activeMenu = 'events';
+        $events = Event::latest()->get();
+        return view('events.index', compact('events', 'activeMenu'));
+    }
 }

@@ -27,8 +27,10 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false))->with('success', 'Login berhasil!');
+        if (Auth::user()->role === 'admin' || Auth::user()->role === 'organizer') {
+            return redirect()->intended(route('dashboard', absolute: false))->with('success', 'Login berhasil!');
+        }
+        return redirect()->intended(route('home', absolute: false))->with('success', 'Login berhasil!');
     }
 
     /**
@@ -42,6 +44,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        toast('Logout berhasil!', 'success');
         return redirect('/');
     }
 }
