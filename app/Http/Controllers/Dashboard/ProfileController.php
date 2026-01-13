@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        return view('dashboard.profile', [
+        return view('dashboard.pages.profile', [
             'user' => $request->user(),
             'activeMenu' => 'profile'
         ]);

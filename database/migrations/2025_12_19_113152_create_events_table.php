@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('location');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->datetime('start_date');
+            $table->datetime('end_date');
             $table->string('banner');
             $table->enum('status', ['draft', 'published', 'closed']);
+            $table->foreignId("id_organizer")->constrained("users", 'id');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('event_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("id_event")->constrained("events");
+            $table->foreignId("events_id")->constrained("events");
             $table->string('name');
             $table->decimal('price');
             $table->integer('quota');
