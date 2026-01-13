@@ -81,7 +81,7 @@
                 @endif
 
                 <li class="sidebar-item {{ $activeMenu == 'profile' ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class='sidebar-link'>
+                    <a href="{{ route('dashboard.profile') }}" class='sidebar-link'>
                         <i class="bi bi-person-fill-gear"></i>
                         <span>Edit Profil</span>
                     </a>
