@@ -1,49 +1,91 @@
-<nav class="py-3 bg-white shadow-sm sticky-top">
-    <div class="container-md d-flex align-items-center justify-content-between">
+<nav class="bg-white shadow-sm sticky-top py-3 position-relative">
+    <div class="container d-flex align-items-center justify-content-between">
 
+        <!-- Logo kiri -->
         <a class="fw-bold fs-3 text-decoration-none" href="/" style="color: #211e75;">
             Yokngipen
         </a>
 
-        <ul class="gap-4 mb-0 d-flex align-items-center list-unstyled fs-5">
-            <li>
-                <a class="fw-semibold text-decoration-none {{ $activeMenu == 'home' ? 'text-primary' : 'text-dark' }}"
-                    href="/">
-                    Home
-                </a>
-            </li>
-            <li>
-                <a class="fw-semibold text-decoration-none {{ $activeMenu == 'events' ? 'text-primary' : 'text-dark' }}"
-                    href="{{ route('events.all') }}">Event</a>
-            </li>
+        <!-- MENU TENGAH (DESKTOP ONLY) -->
+        <div class="d-none d-xl-flex position-absolute top-50 start-50 translate-middle gap-4">
+            <a class="fw-semibold text-decoration-none text-dark" href="/">Home</a>
+            <a class="fw-semibold text-decoration-none text-dark" href="{{ route('events.all') }}">Event</a>
             @auth
-                <li>
-                    <a class="text-dark fw-semibold text-decoration-none" href="#">Tiket</a>
-                </li>
+                <a class="fw-semibold text-decoration-none text-dark" href="#">Tiket</a>
             @endauth
-        </ul>
+        </div>
 
-        <div class="gap-2 d-flex">
+        <!-- BUTTON KANAN (DESKTOP ONLY) -->
+        <div class="d-none d-xl-flex align-items-center gap-2">
             @auth
                 @if (Auth::user()->role != 'user')
-                    <a href="{{ route('dashboard') }}" class="px-4 btn btn-outline-dark rounded-pill">
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-dark rounded-pill px-4">
                         Dashboard
                     </a>
                 @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="px-4 btn btn-outline-danger rounded-pill">
+                    <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
                         Logout
                     </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="px-4 btn btn-outline-dark rounded-pill">
+                <a href="{{ route('login') }}" class="btn btn-outline-dark rounded-pill px-4">
                     Login
                 </a>
-                <a href="{{ route('register') }}" class="px-4 btn btn-dark rounded-pill">
+                <a href="{{ route('register') }}" class="btn btn-dark rounded-pill px-4">
                     Register
                 </a>
             @endauth
         </div>
+
+        <!-- HAMBURGER (TABLET & MOBILE) -->
+        <button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+            ☰
+        </button>
     </div>
 </nav>
+
+<!-- OFFCANVAS MENU (MOBILE & TABLET) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column gap-3">
+
+        <a class="fw-semibold text-decoration-none text-dark" href="/">Home</a>
+        <a class="fw-semibold text-decoration-none text-dark" href="{{ route('events.all') }}">Event</a>
+
+        @auth
+            <a class="fw-semibold text-decoration-none text-dark" href="#">Tiket</a>
+        @endauth
+
+        <hr>
+
+        <div class="d-flex flex-column gap-2">
+            @auth
+                @if (Auth::user()->role != 'user')
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-dark rounded-pill">
+                        Dashboard
+                    </a>
+                @endif
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger rounded-pill w-100">
+                        Logout
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-outline-dark rounded-pill">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="btn btn-dark rounded-pill">
+                    Register
+                </a>
+            @endauth
+        </div>
+
+    </div>
+</div>
