@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="py-5 bg-light">
-        <div class="container">
+    <section class="py-5 mt-5 bg-light container-md rounded-xl">
+        <div class="container-md">
             <h4 class="mb-4 fw-bold">Event Tersedia</h4>
 
             <div class="row g-4">

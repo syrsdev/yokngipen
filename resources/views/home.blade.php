@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container my-4">
+    <div class="my-4 container-md">
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="overflow-hidden shadow carousel-inner rounded-4">
 
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-light container-md rounded-xl">
         <div class="container">
             <h4 class="mb-4 fw-bold">Event Terkini</h4>
 
