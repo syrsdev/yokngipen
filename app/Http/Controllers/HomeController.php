@@ -20,4 +20,11 @@ class HomeController extends Controller
         $events = Event::latest()->get();
         return view('events.index', compact('events', 'activeMenu'));
     }
+
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('events.detail', compact('event'));
+    }
+
 }

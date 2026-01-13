@@ -63,7 +63,7 @@
                                 </p>
                                 <span class="badge bg-success">{{ $event->status }}</span>
 
-                                <a href="#" class="mt-2 btn btn-primary btn-sm w-100 rounded-pill">
+                                <a href="{{ route('events.show', $event->id) }}" class="mt-2 btn btn-primary btn-sm w-100 rounded-pill">
                                     Lihat Detail
                                 </a>
                             </div>
