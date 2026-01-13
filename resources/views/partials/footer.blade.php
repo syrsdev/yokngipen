@@ -12,8 +12,8 @@
             <div class="col-12 col-md-3">
                 <h5 class="mb-4 fw-bold">Menu</h5>
                 <ul class="list-unstyled fs-6">
-                    <li class="mb-3"><a href="#" class="footer-link">Halaman Utama</a></li>
-                    <li class="mb-3"><a href="#" class="footer-link">Lihat Event</a></li>
+                    <li class="mb-3"><a href="{{ route('home') }}" class="footer-link">Halaman Utama</a></li>
+                    <li class="mb-3"><a href="{{ route('events.all') }}" class="footer-link">Lihat Event</a></li>
                 </ul>
             </div>
 

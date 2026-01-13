@@ -1,5 +1,5 @@
 <nav class="py-3 bg-white shadow-sm sticky-top">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container-md d-flex align-items-center justify-content-between">
 
         <a class="fw-bold fs-3 text-decoration-none" href="/" style="color: #211e75;">
             Yokngipen
