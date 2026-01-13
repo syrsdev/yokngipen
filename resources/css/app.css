@@ -21,3 +21,18 @@
         height: 200px;
     }
 }
+
+
+.collapse:not(.show) {
+    display: none !important;
+}
+.collapse.show {
+    display: block !important;
+}
+/* Fix konflik Tailwind + Bootstrap navbar */
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+    }
+}
+
