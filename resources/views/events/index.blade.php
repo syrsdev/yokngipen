@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- REKOMENDASI EVENT -->
     <section class="py-5 bg-light">
         <div class="container">
-            <h4 class="mb-4 fw-bold">Rekomendasi Event</h4>
+            <h4 class="mb-4 fw-bold">Event Tersedia</h4>
 
             <div class="row g-4">
                 @foreach ($events as $event)
