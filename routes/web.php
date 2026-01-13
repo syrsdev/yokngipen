@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [HomeController::class, 'allEvents'])->name('events.all');
+Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.show');
+
 
 Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organizer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
