@@ -48,18 +48,18 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item has-sub">
+                <li class="sidebar-item has-sub {{ $activeMenu == 'event' ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-collection-fill"></i>
-                        <span>Kelola Event</span>
+                        <span>Event</span>
                     </a>
                     <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="extra-component-avatar.html" class="submenu-link">Event</a>
+                        <li class="submenu-item {{ $activeMenu == 'event' ? 'active' : '' }}">
+                            <a href="{{ route('events.index') }}" class="submenu-link">Kelola Event</a>
                         </li>
                         @if (auth()->user()->role == 'organizer')
                             <li class="submenu-item ">
-                                <a href="extra-component-avatar.html" class="submenu-link">Pembayaran</a>
+                                <a href="extra-component-avatar.html" class="submenu-link">Verifikasi Pembayaran</a>
                             </li>
                         @endif
                     </ul>
