@@ -57,27 +57,35 @@
                     </div>
                 </div>
                 @if (auth()->user()->role == 'user' && $event->status == 'published')
-                    <div class="p-4 mt-5 border-0 shadow-sm card ">
+                    <form action="{{ route('order.store') }}" method="POST" class="p-4 mt-5 border-0 shadow-sm card"
+                        enctype="multipart/form-data">
+                        @csrf
                         <h5 class="mb-3 fw-bold">Beli tiket</h5>
-                        <select class="form-select rounded-pill" aria-label="Default select example">
+                        <select name="event_price_id" class="form-select rounded-pill" aria-label="Default select example">
                             <option selected>Pilih Harga dan Tipe</option>
                             @foreach ($event->prices as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }} -
+                                <option  value="{{ $item->id }}">{{ $item->name }} -
                                     Rp{{ number_format($item->price, 0, ',', '.') }}</option>
                             @endforeach
                         </select>
+                        <div class="mt-4 form-group">
+                            <label for="quantity" class="form-label">Jumlah Tiket</label>
+                            <input type="number" class="form-control form-control-xl rounded-pill"
+                                placeholder="Jumlah Tiket" name="quantity" value="{{ old('quantity') }}" autofocus
+                                required>
+                        </div>
                         <div class="my-4">
                             <small class="text-muted">Bayar Melalui</small>
                             <div class="fw-semibold">{{ $event->payment_method }} - {{ $event->account_number }}</div>
                         </div>
                         <div class="mb-4 form-group">
-                            <label for="banner" class="form-label">Upload Bukti Pembayaran</label>
-                            <input type="file" class="form-control" name="banner" id="banner">
+                            <label for="payment_proof" class="form-label">Upload Bukti Pembayaran</label>
+                            <input type="file" class="form-control" name="payment_proof" id="payment_proof">
                         </div>
                         <button class="mt-4 btn btn-primary w-100 rounded-pill">
                             Beli Tiket
                         </button>
-                    </div>
+                    </form>
                 @endif
             </div>
 
