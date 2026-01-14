@@ -47,7 +47,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false))->with('success', 'Registrasi berhasil!');
+        if (Auth::user()->role === 'admin' || Auth::user()->role === 'organizer') {
+            return redirect()->intended(route('dashboard', absolute: false))->with('success', 'Registrasi berhasil!');
+        }
+        return redirect(route('home', absolute: false))->with('success', 'Registrasi berhasil!');
     }
 }

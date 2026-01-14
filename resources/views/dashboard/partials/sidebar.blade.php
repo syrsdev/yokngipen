@@ -48,7 +48,8 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item has-sub {{ $activeMenu == 'event' || $activeMenu == 'verif' ? 'active' : '' }}">
+                <li
+                    class="sidebar-item has-sub {{ $activeMenu == 'event' || $activeMenu == 'verif' || $activeMenu == 'payment' ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-collection-fill"></i>
                         <span>Event</span>
@@ -58,8 +59,8 @@
                             <a href="{{ route('events.index') }}" class="submenu-link">Kelola Event</a>
                         </li>
                         @if (auth()->user()->role == 'organizer')
-                            <li class="submenu-item ">
-                                <a href="extra-component-avatar.html" class="submenu-link">Verifikasi Pembayaran</a>
+                            <li class="submenu-item {{ $activeMenu == 'payment' ? 'active' : '' }}">
+                                <a href="{{ route('orders.index') }}" class="submenu-link">Verifikasi Pembayaran</a>
                             </li>
                         @endif
                         @if (auth()->user()->role == 'admin')
