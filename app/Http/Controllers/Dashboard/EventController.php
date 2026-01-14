@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\event_prices;
 use App\Models\events;
 use Illuminate\Http\Request;
@@ -77,9 +78,8 @@ class EventController extends Controller
     public function show($id)
     {
         $activeMenu = 'event';
-        $event = events::findOrFail($id);
-        $event_prices = event_prices::where('id_event', $id)->get();
-        return view('dashboard.pages.events.detail', compact('event', 'event_prices', 'activeMenu'));
+        $event = Event::with(['prices.orders'])->findOrFail($id);
+        return view('dashboard.pages.events.detail', compact('event', 'activeMenu'));
     }
 
     public function edit($id)

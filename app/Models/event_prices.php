@@ -12,4 +12,8 @@ class event_prices extends Model
     {
         return $this->belongsTo(events::class, 'events_id', 'id');
     }
+    public function orders()
+    {
+        return $this->hasMany(orders::class, 'id_event_price', 'id');
+    }
 }
