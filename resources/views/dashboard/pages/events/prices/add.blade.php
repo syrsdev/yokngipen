@@ -6,7 +6,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{{ route('events.storePrice') }}">
+                <form method="POST" action="{{ route('events.storePrice', $id) }}">
                     @csrf
                     <h5 class="mt-5">Tipe dan Harga</h5>
                     <div class="mb-4 form-group position-relative ">
