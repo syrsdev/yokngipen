@@ -1,45 +1,48 @@
-<nav class="bg-white shadow-sm sticky-top py-3 position-relative">
+<nav class="py-3 bg-white shadow-sm sticky-top position-relative">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <!-- Logo kiri -->
         <a class="fw-bold fs-3 text-decoration-none" href="/" style="color: #211e75;">
             Yokngipen
         </a>
 
-        <!-- MENU TENGAH (DESKTOP ONLY) -->
-        <div class="d-none d-xl-flex position-absolute top-50 start-50 translate-middle gap-4">
-            <a class="fw-semibold text-decoration-none text-dark" href="/">Home</a>
-            <a class="fw-semibold text-decoration-none text-dark" href="{{ route('events.all') }}">Event</a>
+        <div class="gap-4 d-none d-xl-flex position-absolute top-50 start-50 translate-middle">
+            <a class="fw-semibold text-decoration-none {{ $activeMenu == 'home' ? 'text-primary' : 'text-dark' }}"
+                href="/">Home</a>
+            <a class="fw-semibold text-decoration-none {{ $activeMenu == 'events' ? 'text-primary' : 'text-dark' }}"
+                href="{{ route('events.all') }}">Events</a>
             @auth
-                <a class="fw-semibold text-decoration-none text-dark" href="#">Tiket</a>
+                @if (Auth::user()->role == 'user')
+                    <a class="fw-semibold text-decoration-none {{ $activeMenu == 'tiket' ? 'text-primary' : 'text-dark' }}"
+                        href="#">Tiket</a>
+                    <a class="fw-semibold text-decoration-none {{ $activeMenu == 'profile' ? 'text-primary' : 'text-dark' }}"
+                        href="#">Profile</a>
+                @endif
             @endauth
         </div>
 
-        <!-- BUTTON KANAN (DESKTOP ONLY) -->
-        <div class="d-none d-xl-flex align-items-center gap-2">
+        <div class="gap-2 d-none d-xl-flex align-items-center">
             @auth
                 @if (Auth::user()->role != 'user')
-                    <a href="{{ route('dashboard') }}" class="btn btn-outline-dark rounded-pill px-4">
+                    <a href="{{ route('dashboard') }}" class="px-4 btn btn-outline-dark rounded-pill">
                         Dashboard
                     </a>
                 @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
+                    <button type="submit" class="px-4 btn btn-outline-danger rounded-pill">
                         Logout
                     </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="btn btn-outline-dark rounded-pill px-4">
+                <a href="{{ route('login') }}" class="px-4 btn btn-outline-dark rounded-pill">
                     Login
                 </a>
-                <a href="{{ route('register') }}" class="btn btn-dark rounded-pill px-4">
+                <a href="{{ route('register') }}" class="px-4 btn btn-dark rounded-pill">
                     Register
                 </a>
             @endauth
         </div>
 
-        <!-- HAMBURGER (TABLET & MOBILE) -->
         <button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
             ☰
         </button>
@@ -53,18 +56,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
 
-    <div class="offcanvas-body d-flex flex-column gap-3">
+    <div class="gap-3 offcanvas-body d-flex flex-column">
 
-        <a class="fw-semibold text-decoration-none text-dark" href="/">Home</a>
-        <a class="fw-semibold text-decoration-none text-dark" href="{{ route('events.all') }}">Event</a>
+        <a class="fw-semibold text-decoration-none {{ $activeMenu == 'home' ? 'text-primary' : 'text-dark' }}"
+            href="/">Home</a>
+        <a class="fw-semibold text-decoration-none {{ $activeMenu == 'event' ? 'text-primary' : 'text-dark' }}"
+            href="{{ route('events.all') }}">Events</a>
 
         @auth
-            <a class="fw-semibold text-decoration-none text-dark" href="#">Tiket</a>
+            <a class="fw-semibold text-decoration-none {{ $activeMenu == 'tiket' ? 'text-primary' : 'text-dark' }}"
+                href="#">Tiket</a>
+            <a class="fw-semibold text-decoration-none {{ $activeMenu == 'profile' ? 'text-primary' : 'text-dark' }}"
+                href="#">Profile</a>
         @endauth
 
         <hr>
 
-        <div class="d-flex flex-column gap-2">
+        <div class="gap-2 d-flex flex-column">
             @auth
                 @if (Auth::user()->role != 'user')
                     <a href="{{ route('dashboard') }}" class="btn btn-outline-dark rounded-pill">
