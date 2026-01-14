@@ -32,14 +32,10 @@
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->status }}</td>
                                     <td class="d-flex">
-                                        @include('dashboard.partials.action', [
-                                            'route' => 'events',
-                                            'id' => $item->id,
-                                            'show' => true,
-                                            'edit' => false,
-                                            'delete' => false,
-                                        ])
-                                        <form action="{{ route('events.accept', $item->id) }}" method="POST" class="ms-2">
+                                        <a href="{{ route('events.detail', $item->id) }}" class="btn btn-info">Detail</a>
+
+                                        <form action="{{ route('events.accept', $item->id) }}" method="POST"
+                                            class="ms-2">
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="btn btn-success">Konfirmasi Event</button>
