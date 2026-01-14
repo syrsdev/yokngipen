@@ -20,6 +20,8 @@ return new class extends Migration
             $table->datetime('end_date');
             $table->string('banner');
             $table->enum('status', ['draft', 'published', 'closed']);
+            $table->string('payment_method');
+            $table->string('account_number');
             $table->foreignId("id_organizer")->constrained("users", 'id');
             $table->timestamps();
         });

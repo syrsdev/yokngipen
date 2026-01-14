@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->integer('quota');
-            $table->string('payment_method');
-            $table->string('account_number');
             $table->timestamps();
         });
     }

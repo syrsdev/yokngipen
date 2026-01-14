@@ -39,6 +39,16 @@
                         <input type="datetime-local" class="form-control form-control-xl" placeholder="Tanggal selesai"
                             name="end_date" value="{{ $event->end_date }}" autofocus required>
                     </div>
+                    <div class="mb-4 form-group position-relative ">
+                        <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                        <input type="text" class="form-control form-control-xl" placeholder="Ex: BCA/Mandiri/Gopay/Dana"
+                            name="payment_method" value="{{ $event->payment_method }}" autofocus required>
+                    </div>
+                    <div class="mb-4 form-group position-relative ">
+                        <label for="account_number" class="form-label">Nomor Rekening/Tujuan Pembayaran</label>
+                        <input type="text" class="form-control form-control-xl" placeholder="Ex: 123456"
+                            name="account_number" value="{{ $event->account_number }}" autofocus required>
+                    </div>
 
                     <button class="mt-5 shadow-lg btn btn-primary btn-block btn-lg">Buat</button>
                 </form>
