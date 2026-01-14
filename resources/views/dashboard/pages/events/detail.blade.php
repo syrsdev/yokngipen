@@ -104,7 +104,8 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <a href="{{ route('events.create') }}" class="btn btn-success w-100">Tambah Harga
+                                    <a href="{{ route('events.createPrice', $event->id) }}"
+                                        class="btn btn-success w-100">Tambah Harga
                                         Event</a>
                                 </div>
 

@@ -43,6 +43,8 @@ Route::prefix('dashboard')->middleware(['auth', 'role:admin,organizer'])->group(
             Route::get('/add', [EventController::class, 'create'])->name('events.create');
             Route::post('/store', [EventController::class, 'store'])->name('events.store');
             Route::get('/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+            Route::get('/{id}/harga', [EventController::class, 'createPrice'])->name('events.createPrice');
+            Route::post('/store_price', [EventController::class, 'storePrice'])->name('events.storePrice');
             Route::put('/{id}/update', [EventController::class, 'update_event'])->name('events.update_event');
             Route::put('/{id}/update_price', [EventController::class, 'update_event_price'])->name('events.update_event_price');
             Route::put('/{id}/destroy', [EventController::class, 'destroy'])->name('events.destroy');

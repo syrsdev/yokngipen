@@ -109,6 +109,24 @@ class EventController extends Controller
         $event->update($credential);
         return redirect()->route('events.index')->with('success', 'Event berhasil diupdate!');
     }
+
+    public function createPrice()
+    {
+        $activeMenu = 'event';
+        return view('dashboard.pages.events.prices.add', compact('activeMenu'));
+    }
+    public function storePrice(Request $request, $id)
+    {
+        $credential = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'quota' => 'required',
+        ]);
+        $credential['events_id'] = $id;
+        event_prices::create($credential);
+
+        return redirect()->back()->with('success', 'Harga berhasil ditambahkan!');
+    }
     public function update_event_price(Request $request, $id)
     {
         $credential2 = $request->validate([
