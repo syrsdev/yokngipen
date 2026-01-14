@@ -36,7 +36,7 @@ Open & Install Project
   # atau
   php artisan migrate:fresh --seed
 
-   php artisan key:generate
+  php artisan key:generate
 ```
 
 ## Run Locally
