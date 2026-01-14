@@ -68,7 +68,7 @@
                                     <p class="mb-2 fw-bold text-primary">
                                         Rp{{ number_format($item->prices->first()->price, 0, ',', '.') }}
                                     </p>
-                                    <span class="badge bg-success">{{ $item->status }}</span>
+                                    <span class="badge bg-danger">{{ $item->status }}</span>
 
                                     <a href="{{ route('events.detail', $item->id) }}"
                                         class="mt-2 btn btn-primary btn-sm w-100 rounded-pill">

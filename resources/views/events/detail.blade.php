@@ -52,7 +52,8 @@
                     <div class="mb-3">
                         <small class="text-muted">📌 Status</small>
                         <div>
-                            <span class="badge bg-success">{{ $event->status }}</span>
+                            <span
+                                class="badge {{ $event->status == 'published' ? 'bg-success' : 'bg-danger' }}">{{ $event->status }}</span>
                         </div>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                         <select name="event_price_id" class="form-select rounded-pill" aria-label="Default select example">
                             <option selected>Pilih Harga dan Tipe</option>
                             @foreach ($event->prices as $item)
-                                <option  value="{{ $item->id }}">{{ $item->name }} -
+                                <option value="{{ $item->id }}">{{ $item->name }} -
                                     Rp{{ number_format($item->price, 0, ',', '.') }}</option>
                             @endforeach
                         </select>
