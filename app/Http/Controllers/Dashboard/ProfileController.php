@@ -14,6 +14,13 @@ class ProfileController extends Controller
             'activeMenu' => 'profile'
         ]);
     }
+    public function user(Request $request)
+    {
+        return view('profile', [
+            'user' => $request->user(),
+            'activeMenu' => 'profile'
+        ]);
+    }
 
     public function update(Request $request)
     {

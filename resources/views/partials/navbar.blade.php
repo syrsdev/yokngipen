@@ -13,9 +13,9 @@
             @auth
                 @if (Auth::user()->role == 'user')
                     <a class="fw-semibold text-decoration-none {{ $activeMenu == 'tiket' ? 'text-primary' : 'text-dark' }}"
-                        href="#">Tiket</a>
+                        href="{{ route('ticket') }}">Tiket</a>
                     <a class="fw-semibold text-decoration-none {{ $activeMenu == 'profile' ? 'text-primary' : 'text-dark' }}"
-                        href="#">Profile</a>
+                        href="{{ route('profile') }}">Profile</a>
                 @endif
             @endauth
         </div>
@@ -65,9 +65,9 @@
 
         @auth
             <a class="fw-semibold text-decoration-none {{ $activeMenu == 'tiket' ? 'text-primary' : 'text-dark' }}"
-                href="#">Tiket</a>
+                href="{{ route('ticket') }}">Tiket</a>
             <a class="fw-semibold text-decoration-none {{ $activeMenu == 'profile' ? 'text-primary' : 'text-dark' }}"
-                href="#">Profile</a>
+                href="{{ route('profile') }}">Profile</a>
         @endauth
 
         <hr>

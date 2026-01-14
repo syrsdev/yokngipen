@@ -14,16 +14,21 @@ Route::get('/events', [HomeController::class, 'allEvents'])->name('events.all');
 Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.detail')->middleware(['auth']);
 Route::middleware(['role:user', 'auth'])->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/my-tickets', [HomeController::class, 'myTickets'])->name('ticket');
+    Route::get('/tickets/{order}', [HomeController::class, 'showTiket'])
+        ->name('ticket.show');
+    Route::get('/profile', [ProfileController::class, 'user'])
+        ->name('profile');
 });
+Route::put('/profile', [ProfileController::class, 'update'])
+    ->name('dashboard.profile.update')->middleware(['auth']);
 
-Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organizer'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'role:admin,organizer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'index'])
         ->name('dashboard.profile');
 
-    Route::put('/profile', [ProfileController::class, 'update'])
-        ->name('dashboard.profile.update');
 
     Route::prefix('events')->group(function () {
         Route::middleware(['role:admin,organizer'])->group(function () {

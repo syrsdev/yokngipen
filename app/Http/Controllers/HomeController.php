@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\orders;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,5 +29,28 @@ class HomeController extends Controller
         $activeMenu = 'events';
         $event = Event::with('prices')->findOrFail($id);
         return view('events.detail', compact('event', 'activeMenu'));
+    }
+
+    public function myTickets()
+    {
+        $activeMenu = 'tiket';
+        $orders = orders::with('eventPrice.event')
+            ->where('id_user', Auth::user()->id)
+            ->latest()
+            ->get();
+
+        return view('tiket.index', compact('orders', 'activeMenu'));
+    }
+    public function showTiket($id)
+    {
+        $activeMenu = 'tiket';
+        $order = orders::with([
+            'eventPrice.event',
+            'payment'
+        ])
+            ->where('id_user', Auth::user()->id)
+            ->findOrFail($id);
+
+        return view('tiket.show', compact('order', 'activeMenu'));
     }
 }
