@@ -48,7 +48,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item has-sub {{ $activeMenu == 'event' ? 'active' : '' }}">
+                <li class="sidebar-item has-sub {{ $activeMenu == 'event' || $activeMenu == 'verif' ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-collection-fill"></i>
                         <span>Event</span>
@@ -62,16 +62,15 @@
                                 <a href="extra-component-avatar.html" class="submenu-link">Verifikasi Pembayaran</a>
                             </li>
                         @endif
+                        @if (auth()->user()->role == 'admin')
+                            <li class="submenu-item {{ $activeMenu == 'verif' ? 'active' : '' }}">
+                                <a href="{{ route('events.verif') }}" class="submenu-link">Verifikasi Event</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
                 @if (auth()->user()->role == 'admin')
                     <li class="sidebar-title">Admin</li>
-                    <li class="sidebar-item">
-                        <a href="index.html" class='sidebar-link'>
-                            <i class="bi bi-file-earmark-check-fill"></i>
-                            <span>Verifikasi Event</span>
-                        </a>
-                    </li>
                     <li class="sidebar-item {{ $activeMenu == 'users' ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class='sidebar-link'>
                             <i class="bi bi-person-fill"></i>

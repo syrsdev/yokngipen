@@ -2,19 +2,15 @@
 
 @section('contents')
     @include('dashboard.partials.heading', [
-        'title' => ($title = auth()->user()->role == 'admin' ? 'Semua Event' : 'Event Saya'),
+        'title' => 'Verifikasi Event',
     ])
 
     <section class="section">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title">
-                    Data Event
+                    Konfirmasi untuk publish Event
                 </h5>
-
-                @if (auth()->user()->role == 'organizer')
-                    <a href="{{ route('events.create') }}" class="btn btn-success">Buat Event</a>
-                @endif
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -40,19 +36,15 @@
                                             'route' => 'events',
                                             'id' => $item->id,
                                             'show' => true,
-                                            'edit' => auth()->user()->role == 'organizer' ? true : false,
+                                            'edit' => false,
                                             'delete' => false,
                                         ])
-                                        @if (auth()->user()->role == 'organizer' && $item->status != 'closed')
-                                            <form action="{{ route('events.destroy', $item->id) }}" method="POST"
-                                                class="ms-2">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-danger">Tutup Event</button>
-                                            </form>
-                                        @endif
+                                        <form action="{{ route('events.accept', $item->id) }}" method="POST" class="ms-2">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-success">Konfirmasi Event</button>
+                                        </form>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

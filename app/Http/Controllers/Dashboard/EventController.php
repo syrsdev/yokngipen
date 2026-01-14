@@ -21,6 +21,21 @@ class EventController extends Controller
         return view('dashboard.pages.events.index', compact('events', 'activeMenu'));
     }
 
+    public function verif()
+    {
+        $activeMenu = 'verif';
+        $events = events::with('prices')->where('status', 'draft')->get();
+        return view('dashboard.pages.events.verif', compact('events', 'activeMenu'));
+    }
+
+    public function accept($id)
+    {
+        $event = events::findOrFail($id);
+        $event->status = 'published';
+        $event->save();
+        return redirect()->back()->with('success', 'Event berhasil dipublish!');
+    }
+
     public function create()
     {
         $activeMenu = 'event';
@@ -35,14 +50,14 @@ class EventController extends Controller
             'location' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'payment_method' => 'required',
+            'account_number' => 'required',
             "banner" => "required|image|mimes:jpg,png,jpeg,svg|max:2048",
         ]);
         $credential2 = $request->validate([
             'name' => 'required',
             'price' => 'required',
             'quota' => 'required',
-            'payment_method' => 'required',
-            'account_number' => 'required',
         ]);
 
         if ($request->hasFile('banner')) {
@@ -61,9 +76,10 @@ class EventController extends Controller
     }
     public function show($id)
     {
+        $activeMenu = 'event';
         $event = events::findOrFail($id);
         $event_prices = event_prices::where('id_event', $id)->get();
-        return;
+        return view('dashboard.pages.events.detail', compact('event', 'event_prices', 'activeMenu'));
     }
 
     public function edit($id)
@@ -83,6 +99,8 @@ class EventController extends Controller
             'location' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'payment_method' => 'required',
+            'account_number' => 'required',
             'banner' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:2048',
         ]);
 
@@ -97,12 +115,18 @@ class EventController extends Controller
             'name' => 'required',
             'price' => 'required',
             'quota' => 'required',
-            'payment_method' => 'required',
-            'account_number' => 'required',
         ]);
 
         $event_prices = event_prices::findOrFail($id);
         $event_prices->update($credential2);
         return redirect()->route('events.index')->with('success', 'Event Price berhasil diupdate!');
+    }
+
+    public function destroy($id)
+    {
+        $event = events::findOrFail($id);
+        $event->status = 'closed';
+        $event->save();
+        return redirect()->back()->with('success', 'Event ditutup!');
     }
 }

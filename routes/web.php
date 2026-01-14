@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [HomeController::class, 'allEvents'])->name('events.all');
-Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.show');
+Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.detail')->middleware(['auth']);
 
 
 Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organizer'])->group(function () {
@@ -22,15 +22,23 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:admin,organize
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('dashboard.profile.update');
 
-    Route::prefix('events')->middleware(['role:admin,organizer'])->group(function () {
-        Route::get('/', [EventController::class, 'index'])->name('events.index');
-        Route::get('/add', [EventController::class, 'create'])->name('events.create');
-        Route::post('/store', [EventController::class, 'store'])->name('events.store');
-        Route::get('/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
-        Route::put('/{id}/update', [EventController::class, 'update_event'])->name('events.update_event');
-        Route::put('/{id}/update_price', [EventController::class, 'update_event_price'])->name('events.update_event_price');
-        Route::delete('/{id}/destroy', [EventController::class, 'destroy'])->name('events.destroy');
-        Route::get('/{id}/show', [EventController::class, 'show'])->name('events.show');
+    Route::prefix('events')->group(function () {
+        Route::middleware(['role:admin,organizer'])->group(function () {
+            Route::get('/', [EventController::class, 'index'])->name('events.index');
+            Route::get('/{id}/show', [EventController::class, 'show'])->name('events.show');
+        });
+        Route::middleware(['role:admin'])->group(function () {
+            Route::get('/verify', [EventController::class, 'verif'])->name('events.verif');
+            Route::put('/{id}/verified', [EventController::class, 'accept'])->name('events.accept');
+        });
+        Route::middleware(['role:organizer'])->group(function () {
+            Route::get('/add', [EventController::class, 'create'])->name('events.create');
+            Route::post('/store', [EventController::class, 'store'])->name('events.store');
+            Route::get('/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+            Route::put('/{id}/update', [EventController::class, 'update_event'])->name('events.update_event');
+            Route::put('/{id}/update_price', [EventController::class, 'update_event_price'])->name('events.update_event_price');
+            Route::put('/{id}/destroy', [EventController::class, 'destroy'])->name('events.destroy');
+        });
     });
 
     Route::prefix('users')->middleware(['role:admin'])->group(function () {
