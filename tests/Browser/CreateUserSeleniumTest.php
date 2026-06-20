@@ -96,7 +96,7 @@ class CreateUserSeleniumTest extends DuskTestCase
                 ->radio('role', 'user')
                 ->type('password', 'Password123!')
                 ->type('password_confirmation', 'Password123!');
-
+            $this->nonaktifkanValidasiBrowser($browser);
 
             $browser->press('Simpan')
                 ->assertPathIs('/dashboard/users/add')
@@ -125,7 +125,7 @@ class CreateUserSeleniumTest extends DuskTestCase
                 ->type('password', 'Password123!')
                 ->type('password_confirmation', 'Password123!');
 
-
+            $this->nonaktifkanValidasiBrowser($browser);
             $browser->press('Simpan')
                 ->assertPathIs('/dashboard/users/add')
                 ->assertSee('The name field is required.')
