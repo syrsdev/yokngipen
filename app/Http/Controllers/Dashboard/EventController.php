@@ -64,7 +64,7 @@ class EventController extends Controller
         if ($request->hasFile('banner')) {
             $file = $request->file('banner');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move("banner/", $filename);
+            $file->move(("banner/"), $filename);
             $credential['banner'] = $filename;
         }
 
