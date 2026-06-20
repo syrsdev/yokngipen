@@ -11,14 +11,14 @@
                     <h6>Data</h6>
                     <div class="mb-4 form-group position-relative has-icon-left">
                         <input type="text" class="form-control form-control-xl" placeholder="Nama Lengkap" name="name"
-                            value="{{ old('name') }}" autofocus required>
+                            value="{{ old('name') }}" autofocus >
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
                     <div class="mb-4 form-group position-relative has-icon-left">
                         <input type="email" class="form-control form-control-xl" placeholder="Email" name="email"
-                            value="{{ old('email') }}" required>
+                            value="{{ old('email') }}" >
                         <div class="form-control-icon">
                             <i class="bi bi-envelope"></i>
                         </div>
