@@ -1,36 +1,9 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 
-uses(RefreshDatabase::class);
-
-test('P1 - input tidak valid', function () {
-
-    $this->post('/login', [
-        'email' => '',
-        'password' => 'Password123',
-    ])
-    ->assertSessionHasErrors('email');
-});
-
-test('P2 - login gagal karena password salah', function () {
-
-    User::factory()->create([
-        'email' => 'user@gmail.com',
-        'password' => Hash::make('Password123'),
-        'role' => 'user',
-    ]);
-
-    $this->post('/login', [
-        'email' => 'user@gmail.com',
-        'password' => 'PasswordSalah',
-    ])
-    ->assertSessionHasErrors();
-});
-
-test('P3 - admin atau organizer berhasil login', function () {
+test('EP-01 organizer berhasil login dan redirect dashboard', function () {
 
     User::factory()->create([
         'email' => 'organizer@gmail.com',
@@ -38,14 +11,15 @@ test('P3 - admin atau organizer berhasil login', function () {
         'role' => 'organizer',
     ]);
 
-    $this->post('/login', [
+    $this->post(route('login'), [
         'email' => 'organizer@gmail.com',
         'password' => 'Password123',
-    ])
-    ->assertRedirect(route('dashboard'));
+    ])->assertRedirect(route('dashboard'));
+
+    $this->assertAuthenticated();
 });
 
-test('P4 - user berhasil login', function () {
+test('EP-02 user berhasil login dan redirect home', function () {
 
     User::factory()->create([
         'email' => 'user@gmail.com',
@@ -53,9 +27,74 @@ test('P4 - user berhasil login', function () {
         'role' => 'user',
     ]);
 
-    $this->post('/login', [
+    $this->post(route('login'), [
         'email' => 'user@gmail.com',
         'password' => 'Password123',
-    ])
-    ->assertRedirect(route('home'));
+    ])->assertRedirect(route('home'));
+
+    $this->assertAuthenticated();
+});
+
+test('EP-03 format email tidak valid', function () {
+
+    $this->from(route('login'))
+        ->post(route('login'), [
+            'email' => 'organizergmail',
+            'password' => 'Password123',
+        ])
+        ->assertSessionHasErrors('email');
+
+    $this->assertGuest();
+});
+
+test('EP-04 email kosong', function () {
+
+    $this->from(route('login'))
+        ->post(route('login'), [
+            'email' => '',
+            'password' => 'Password123',
+        ])
+        ->assertSessionHasErrors('email');
+
+    $this->assertGuest();
+});
+
+test('EP-05 email tidak terdaftar', function () {
+
+    $this->from(route('login'))
+        ->post(route('login'), [
+            'email' => 'tidakada@gmail.com',
+            'password' => 'Password123',
+        ]);
+
+    $this->assertGuest();
+});
+
+test('EP-06 password salah', function () {
+
+    User::factory()->create([
+        'email' => 'user@gmail.com',
+        'password' => Hash::make('Password123'),
+        'role' => 'user',
+    ]);
+
+    $this->from(route('login'))
+        ->post(route('login'), [
+            'email' => 'user@gmail.com',
+            'password' => 'Salah123',
+        ]);
+
+    $this->assertGuest();
+});
+
+test('EP-07 password kosong', function () {
+
+    $this->from(route('login'))
+        ->post(route('login'), [
+            'email' => 'user@gmail.com',
+            'password' => '',
+        ])
+        ->assertSessionHasErrors('password');
+
+    $this->assertGuest();
 });
