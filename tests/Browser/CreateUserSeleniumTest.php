@@ -100,10 +100,12 @@ class CreateUserSeleniumTest extends DuskTestCase
 
             $browser->press('Simpan')
                 ->assertPathIs('/dashboard/users/add')
+                ->waitFor('.swal2-container', 10)   
+                ->pause(300)                        
                 ->assertSee('The name field is required.')
                 ->assertSee('OK')
                 ->press('OK')
-                ->waitUntilMissing('.swal2-container')
+                ->waitUntilMissing('.swal2-container', 10)
                 ->pause(300);
 
             $this->assertDatabaseMissing('users', [
@@ -128,9 +130,14 @@ class CreateUserSeleniumTest extends DuskTestCase
             $this->nonaktifkanValidasiBrowser($browser);
             $browser->press('Simpan')
                 ->assertPathIs('/dashboard/users/add')
+                ->waitFor('.swal2-container', 10)  
+                ->pause(300)                         
+                ->assertSee('The name field is required.')
                 ->assertSee('The name field is required.')
                 ->assertSee('OK')
                 ->press('OK')
+                ->waitUntilMissing('.swal2-container', 10)   
+                ->pause(300)                                 
 
                 ->clear('name')
                 ->type('name', 'johny')
