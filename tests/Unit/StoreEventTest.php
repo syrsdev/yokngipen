@@ -1,69 +1,86 @@
 <?php
 
-namespace Tests\Unit;
-
+use App\Models\User;
+use App\Models\events;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-uses(TestCase::class);
+uses(TestCase::class, RefreshDatabase::class);
 
-
-test('store event berhasil dengan semua field credential valid', function () {
-
-    $data = [
-        'title'          => 'FANMEETING Waras Group In Surabaya',
-        'description'    => 'Deskripsi FANMEETING Waras Group',
-        'location'       => 'Aula Telkom University Surabaya',
-        'start_date'     => '2026-06-17',
-        'end_date'       => '2026-06-19',
-        'payment_method' => 'transfer',
-        'account_number' => '123456789',
-    ];
-
-    $validator = validator($data, [
-        'title'          => 'required',
-        'description'    => 'required',
-        'location'       => 'required',
-        'start_date'     => 'required',
-        'end_date'       => 'required',
-        'payment_method' => 'required',
-        'account_number' => 'required',
+function actingAsOrganizer()
+{
+    $organizer = User::create([
+        'name' => 'Organizer',
+        'email' => 'organizer@test.com',
+        'password' => bcrypt('password'),
+        'phone' => '081234567890',
+        'role' => 'organizer',
     ]);
 
-    expect($validator->fails())->toBeFalse();
-});
+    return test()->actingAs($organizer);
+}
 
-test('store event gagal jika title kosong', function () {
-    $data = [
-        'title'          => '',
-        'description'    => 'Deskripsi FANMEETING Waras Group',
-        'location'       => 'Aula Telkom University Surabaya',
-        'start_date'     => '2026-06-17',
-        'end_date'       => '2026-06-19',
+function validData(array $override = [])
+{
+    return array_merge([
+        'title' => 'FANMEETING Waras Group In Surabaya',
+        'description' => 'Deskripsi FANMEETING Waras Group',
+        'location' => 'Aula Telkom University Surabaya',
+        'start_date' => '2026-06-17',
+        'end_date' => '2026-06-19',
         'payment_method' => 'transfer',
         'account_number' => '123456789',
-    ];
-
-    $validator = validator($data, [
-        'title' => 'required',
-    ]);
-
-    expect($validator->fails())->toBeTrue();
-    expect($validator->errors()->has('title'))->toBeTrue();
-});
-
-test('store event gagal jika name tiket kosong', function () {
-    $data = [
-        'name'  => '',
+        'banner' => UploadedFile::fake()->image('banner.jpg'),
+        'name' => 'Regular',
         'price' => 850000,
         'quota' => 150,
-    ];
+    ], $override);
+}
 
-    $validator = validator($data, [
-        'name'  => 'required',
-        'price' => 'required',
-        'quota' => 'required',
+test('UT-01 path P1 seluruh input valid maka event berhasil dibuat', function () {
+    Storage::fake('public');
+
+    actingAsOrganizer();
+
+    $response = $this->post(route('events.store'), validData());
+
+    $response->assertRedirect(route('events.index'));
+
+    expect(events::count())->toBe(1);
+});
+
+test('UT-02 path P3 title kosong maka validasi credential pertama gagal', function () {
+    actingAsOrganizer();
+
+    $response = $this->post(route('events.store'), validData([
+        'title' => '',
+    ]));
+
+    $response->assertSessionHasErrors(['title']);
+});
+
+test('UT-03 path P4 name tiket kosong maka validasi credential kedua gagal', function () {
+    actingAsOrganizer();
+
+    $response = $this->post(route('events.store'), validData([
+        'name' => '',
+    ]));
+
+    $response->assertSessionHasErrors(['name']);
+});
+
+test('UT-04 event berhasil disimpan dengan status draft', function () {
+    $this->withoutExceptionHandling();
+    Storage::fake('public');
+
+    actingAsOrganizer();
+
+    $this->post(route('events.store'), validData());
+
+    $this->assertDatabaseHas('events', [
+        'title' => 'FANMEETING Waras Group In Surabaya',
+        'status' => 'draft',
     ]);
-
-    expect($validator->fails())->toBeTrue();
-    expect($validator->errors()->has('name'))->toBeTrue();
 });
