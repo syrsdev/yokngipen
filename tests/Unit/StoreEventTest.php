@@ -72,12 +72,17 @@ test('UT-03 path P4 name tiket kosong maka validasi credential kedua gagal', fun
 });
 
 test('UT-04 event berhasil disimpan dengan status draft', function () {
-    $this->withoutExceptionHandling();
     Storage::fake('public');
 
     actingAsOrganizer();
 
-    $this->post(route('events.store'), validData());
+    $response = $this->post(route('events.store'), validData());
+
+    dump('Status code: ' . $response->status());
+    if ($response->status() === 500) {
+        dump('Exception: ' . $response->exception?->getMessage());
+        dump('File: ' . $response->exception?->getFile() . ':' . $response->exception?->getLine());
+    }
 
     $this->assertDatabaseHas('events', [
         'title' => 'FANMEETING Waras Group In Surabaya',
